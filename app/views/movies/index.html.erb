@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-sm-8 mt-3">
+      <div id="movies">
+        <%= form_tag movies_path, method: :get do %>
+          <%= text_field_tag :query, params[:query], class: 'form-control' %>
+          <%= submit_tag "Search", class: "btn btn-primary" %>
+        <% end %>
+
+        <% @results.each do |result| %>
+          <% movie_or_tv_show = result.searchable %>
+          <h4>
+            <%= movie_or_tv_show.title %>
+            <%# if result.searchable_type == 'Movie' %>
+            <%# if movie_or_tv_show.class.to_s == 'Movie' %>
+            <% if movie_or_tv_show.is_a?(Movie) %>
+              (<%= movie_or_tv_show.director.name %>)
+            <% end %>
+          </h4>
+          <p><%= movie_or_tv_show.synopsis %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
